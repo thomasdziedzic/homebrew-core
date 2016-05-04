@@ -14,7 +14,7 @@ class Coq < Formula
   desc "Proof assistant for higher-order logic"
   homepage "https://coq.inria.fr/"
   url "https://coq.inria.fr/distrib/8.5pl1/files/coq-8.5pl1.tar.gz"
-  version "8.5pl1"
+  version "8.5pl1_1"
   sha256 "4bfa75b10ae1be61301d0f7bc087b7c24e0b8bd025dd358c75709ac04ddd5df0"
 
   head "git://scm.gforge.inria.fr/coq/coq.git", :branch => "trunk"
@@ -28,6 +28,7 @@ class Coq < Formula
   depends_on Camlp5TransitionalModeRequirement
   depends_on "camlp5"
   depends_on "ocaml"
+  depends_on "lablgtk"
 
   def install
     camlp5_lib = Formula["camlp5"].opt_lib+"ocaml/camlp5"
@@ -36,7 +37,7 @@ class Coq < Formula
                           "-camlp5dir", camlp5_lib,
                           "-emacslib", "#{share}/emacs/site-lisp/coq",
                           "-coqdocdir", "#{pkgshare}/latex",
-                          "-coqide", "no",
+                          "-coqide", "opt",
                           "-with-doc", "no"
     ENV.j1 # Otherwise "mkdir bin" can be attempted by more than one job
     system "make", "world"
